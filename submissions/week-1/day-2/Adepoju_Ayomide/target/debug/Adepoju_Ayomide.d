@@ -1,0 +1,1 @@
+/home/fade/Web3bridge-Rust-Masterclass-Cohort-I/submissions/week-1/day-2/Adepoju_Ayomide/target/debug/Adepoju_Ayomide: /home/fade/Web3bridge-Rust-Masterclass-Cohort-I/submissions/week-1/day-2/Adepoju_Ayomide/src/main.rs
