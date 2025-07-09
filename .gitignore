@@ -116,3 +116,7 @@ typings/
 # Temporary files
 *.tmp
 *.temp 
+
+# Rust
+**/target/
+target
