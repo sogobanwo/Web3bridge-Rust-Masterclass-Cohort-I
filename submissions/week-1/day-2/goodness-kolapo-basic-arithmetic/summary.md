@@ -1,8 +1,20 @@
+
+# Chapter 3.4: Comments
+
+We use `//` for single-line comments, `/* ... */` for multi-line, and `///` for doc comments (which show up in docs)
+
+---
+
+# Chapter 3.5: Control Flow
+
+Rust uses `if` statements for making decisions, and three kinds of loops: `loop` (runs forever unless you break), `while` (runs while a condition is true), and `for` (great for going through arrays and ranges)
+
+
 # Chapter 4 Summary: Ownership in Rust
 
- Chapter 4 of Rust is basically all about this thing called **ownership**. Like, Rust is super strict about who owns what in the codebase,
+ Chapter 4 of Rust is about **ownership**. Rust is strict about who owns what in the codebase,
 
-- Every value in Rust has an owner. Only one owner at a time, no sharing like that.
+- Every value in Rust has an owner. Only one owner at a time.
 
 ```rust
 fn main() {
@@ -60,3 +72,5 @@ fn change(s: &mut String) {
     s.push_str("ed");
 }
 ```
+
+
