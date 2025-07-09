@@ -121,7 +121,3 @@ typings/
 
 # target folder
 *target
-
-# Rust
-**/target/
-target
