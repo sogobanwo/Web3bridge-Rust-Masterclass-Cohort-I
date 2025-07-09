@@ -1,6 +1,6 @@
-# Chapter 3 Summary: Ownership in Rust
+# Chapter 4 Summary: Ownership in Rust
 
- Chapter 3 of Rust is basically all about this thing called **ownership**. Like, Rust is super strict about who owns what in the codebase,
+ Chapter 4 of Rust is basically all about this thing called **ownership**. Like, Rust is super strict about who owns what in the codebase,
 
 - Every value in Rust has an owner. Only one owner at a time, no sharing like that.
 
