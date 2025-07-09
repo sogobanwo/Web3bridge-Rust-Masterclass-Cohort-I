@@ -116,3 +116,8 @@ typings/
 # Temporary files
 *.tmp
 *.temp 
+
+# Rust/Cargo
+target/
+**/target/
+Cargo.lock 
