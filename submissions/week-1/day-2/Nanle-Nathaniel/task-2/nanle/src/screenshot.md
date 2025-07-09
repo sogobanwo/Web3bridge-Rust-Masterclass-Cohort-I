@@ -1,1 +1,0 @@
-![Description of what the screenshot shows](./path/to/screenshot.png)
