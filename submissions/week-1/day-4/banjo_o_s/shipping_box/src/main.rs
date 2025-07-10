@@ -16,7 +16,7 @@ impl ShippingBox{
         }
     }
 
-    fn display_box(&self) -> ShippingBox {
+    fn display_box(&self) -> Self {
         ShippingBox {
             weight: self.weight,
             dimension: self.dimension,
