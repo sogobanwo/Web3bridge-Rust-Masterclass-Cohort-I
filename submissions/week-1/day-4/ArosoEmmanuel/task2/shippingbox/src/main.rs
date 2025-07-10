@@ -1,5 +1,13 @@
 fn main() {
-    println!("Hello, world!");
+
+    let box1 = ShippingBox::new(100, 5.0, Color::Blue);
+    let box2 = ShippingBox::new(200, 10.0, Color::
+        Red);
+
+    ShippingBox::display_characteristics(&box2);
+
+    // Displaying the volume of box1
+    // println!("Box 1 Volume: {} cm³", box1.calculate_volume());
 }
 
 
@@ -9,6 +17,7 @@ struct ShippingBox {
     color: Color,
 }
 
+#[derive(Debug)]
 enum Color {
     Red,
     Orange,
@@ -37,25 +46,24 @@ impl ShippingBox {
         self.dimensions
     }
 
-    fn display_characteristics(box: &ShippingBox) {
-        let box = box; // shadowing the parameter to avoid confusion
+    fn display_characteristics(whole_box: &ShippingBox) {
         println!("Shipping Box Characteristics:");
-        println!("Dimensions: {} cm³", box.dimensions);
-        println!("Weight: {} kg", box.weight);
-        println!("Color: {}", box.display_color());
+        println!("Dimensions: {} cm³", whole_box.calculate_volume());
+        println!("Weight: {} kg", whole_box.weight);
+        whole_box.display_color(whole_box);
     }
 
-    fn display_color(box: &ShippingBox) -> &str {
-        match box.color {
-            Color::Red => "Red",
-            Color::Orange => "Orange",
-            Color::Yellow => "Yellow",
-            Color::Green => "Green",
-            Color::Blue => "Blue",
-            Color::Indigo => "Indigo",
-            Color::Violet => "Violet",
-            Color::Black => "Black",
-            Color::White => "White",
+    fn display_color(&self, color_box: &ShippingBox) {
+        match color_box.color {
+            Color::Red => println!("Color: Red"),
+            Color::Orange => println!("Color: Orange"),
+            Color::Yellow => println!("Color: Yellow"),
+            Color::Green => println!("Color: Green"),
+            Color::Blue => println!("Color: Blue"),
+            Color::Indigo => println!("Color: Indigo"),
+            Color::Violet => println!("Color: Violet"),
+            Color::Black => println!("Color: Black"),
+            Color::White => println!("Color: White"),
         }
     }
 }   
