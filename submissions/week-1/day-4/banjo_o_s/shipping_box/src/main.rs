@@ -1,28 +1,41 @@
 fn main() {
-    println!("Hello, world!");
+    // println!("Hello, world!");
+    let new_box: ShippingBox = ShippingBox::new_box(10, Dimension { length: 5, width: 5, height: 5 }, BoxColor::Red);
+    let boxed: ShippingBox = new_box.display_box();
+    println!("Box 1: {:?}", boxed);
 }
 
 
 impl ShippingBox{
 
-    fn new_box() -> Self {
+    fn new_box(weight: i32, dimension: Dimension, color: BoxColor) -> Self {
         Self {
-            
+            weight,
+            dimension,
+            color
+        }
+    }
+
+    fn display_box(&self) -> ShippingBox {
+        ShippingBox {
+            weight: self.weight,
+            dimension: self.dimension,
+            color: self.color
         }
     }
 }
 
 
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 struct ShippingBox {
-    width: i32,
+    weight: i32,
     dimension: Dimension,
     color: BoxColor,
 }
 
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 struct Dimension {
     length: i32,
     width: i32,
