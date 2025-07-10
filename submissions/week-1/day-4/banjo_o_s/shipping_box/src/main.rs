@@ -17,11 +17,13 @@ impl ShippingBox{
     }
 
     fn display_box(&self) -> Self {
-        ShippingBox {
-            weight: self.weight,
-            dimension: self.dimension,
-            color: self.color
-        }
+        // ShippingBox {
+        //     weight: self.weight,
+        //     dimension: self.dimension,
+        //     color: self.color
+        // }
+
+        *self
     }
 }
 
