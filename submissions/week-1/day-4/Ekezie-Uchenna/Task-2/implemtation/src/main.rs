@@ -44,8 +44,8 @@ impl ShippingBox {
 }
 
 fn main() {
-    
-    let box1 = ShippingBox::new(30.0, 20.0, 15.0, 2.5, BoxColor::Blue);
+
+    let box1 = ShippingBox::ship(30.0, 20.0, 15.0, 2.5, BoxColor::Blue);
 
 
     box1.print_characteristics();
