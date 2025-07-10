@@ -1,10 +1,8 @@
 fn main() {
 
-    let box1 = ShippingBox::new(100, 5.0, Color::Blue);
-    let box2 = ShippingBox::new(200, 10.0, Color::
-        Red);
+    let box1 = ShippingBox::new((100, 50, 20), 5.0, Color::Blue);
 
-    ShippingBox::display_characteristics(&box2);
+    ShippingBox::display_characteristics(&box1);
 
     // Displaying the volume of box1
     // println!("Box 1 Volume: {} cm³", box1.calculate_volume());
@@ -12,7 +10,7 @@ fn main() {
 
 
 struct ShippingBox {
-    dimensions: u32,
+    dimensions: (u32, u32, u32), // (length, width, height)
     weight: f32,
     color: Color,
 }
@@ -32,7 +30,7 @@ enum Color {
 
 impl ShippingBox {
 
-    fn new(dimensions: u32, weight: f32, color: Color) -> Self {
+    fn new(dimensions: (u32, u32, u32), weight: f32, color: Color) -> Self {
         ShippingBox {
             dimensions,
             weight,
@@ -41,9 +39,10 @@ impl ShippingBox {
     }
 
     // ToDo: apply calculations for the dimensions
-    fn calculate_volume(&self) -> u32 {
+    fn calculate_volume(&self) -> u64 {
         // Assuming dimensions is the volume in cm³ for simplicity
-        self.dimensions
+        let (length, width, height) = self.dimensions;
+        (length * width * height).into()
     }
 
     fn display_characteristics(whole_box: &ShippingBox) {
