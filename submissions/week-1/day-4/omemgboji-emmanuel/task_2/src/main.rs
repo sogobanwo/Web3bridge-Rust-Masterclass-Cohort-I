@@ -1,7 +1,7 @@
 
 enum Color(
-    White(u8,u8,u8);
-    Black(u8,u8,u8);
+    White(u8, u8, u8),
+    Black(u8, u8, u8),
 )
 
 struct ShippingBox{
@@ -30,13 +30,19 @@ impl ShippingBox{
         self.weight
     }
 
-    fn display_color(&self) ->Color{
-        self.color
+    fn display_color(&self) -> &Color {
+        &self.color
     }
 }
 fn main() {
     
-    ShippingBox::new_box();
+    let my_box = ShippingBox::new_box((10, 20), 5, Color::White(255, 255, 255));
 
-    println!("Dimensions: {}", ShippingBox::display_dim());
+    println!("Dimensions: {}", my_box.display_dim());
+    println!("Weight: {}", my_box.display_wght());
+
+    match my_box.display_color() {
+        Color::White(r, g, b) => println!("Color: White({}, {}, {})", r, g, b),
+        Color::Black(r, g, b) => println!("Color: Black({}, {}, {})", r, g, b),
+    }
 }
