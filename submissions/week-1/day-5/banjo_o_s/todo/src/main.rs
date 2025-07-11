@@ -1,17 +1,21 @@
 fn main() {
     let mut todo_list: VecTodo = VecTodo::new();
-    
+
+
+
 }
 
+#[derive(Debug)]
 struct VecTodo {
     todos: Vec<Todo>,
+    id_counter: u32,
 }
 
 
 #[derive(Debug)]
 struct Todo {
     id: u32,
-    tile: String,
+    title: String,
     description: String,
     completed: bool,
 }
@@ -21,6 +25,7 @@ impl VecTodo {
     fn new() -> Self {
         Self {
             todos: Vec::new(),
+            id_counter: 1,
         }
     }
 
@@ -30,10 +35,11 @@ impl VecTodo {
     }
 
     fn delete_todo(&mut self, id: u32) -> bool {
+        // self.
         true
     }
 
-    fn get_todo(&self, id: u32) -> Option<&Todo> {
+    fn get_todo(&self, id: u32) -> Option<(usize, &Todo)> {
         Option::None
     }
 }
