@@ -59,6 +59,13 @@ fn main() {
     // after editing
     println!("after editing todo: {:#?}", todo_list);
 
+    // delete a todo
+    todo_list.delete_todo(new_id);
+
+
+    // after deleting
+    println!("after deleted: {:#?}", todo_list);
+
 }
 
 #[derive(Debug)]
@@ -95,7 +102,7 @@ impl VecTodo {
     }
 
     fn delete_todo(&mut self, id: u32) -> bool {
-        // self.
+        self.todos.retain(|i | i.id != id);
         true
     }
 
