@@ -20,16 +20,16 @@ Then call each of them in `main()` with values and run the program using `cargo 
 
 ## Requirements:
 
-- Print out a list of tickets and their information for an event
-- Tickets can be Backstage, Vip, and Standard
-- Backstage and Vip tickets include the ticket holder's name
+- Print out a list of books and their information
+- Books can be Fiction, Magazine, and SciFi
+- Magazine and Fiction books include the authors name
 
-## All tickets include the price
+## All books include the price
 
 ## Notes:
 
-- Use an enum for the tickets with data associated with each variant
-- Create one of each ticket and place into a vector
-- Use a match expression while iterating the vector to print the ticket info
+- Use an enum for the books with data associated with each variant
+- Create one of each book and place into a vector
+- Use a match expression while iterating the vector to print the book info
 
 ---
