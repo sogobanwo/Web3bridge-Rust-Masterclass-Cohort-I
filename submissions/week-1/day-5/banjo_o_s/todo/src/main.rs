@@ -14,7 +14,20 @@ fn main() {
 
     // mark to completed
     // first get the todo from the list
-    let 
+    let found_todo: Option<(usize, &mut Todo)> = todo_list.get_todo(new_id);
+
+    let (_, todo) = match found_todo {
+        Some((i, v)) => (i, v),
+        None => {
+            println!("could not locate todo");
+            return;
+        },
+    };
+    todo.mark_completed();
+
+
+    println!("after completed::: {:#?}", todo_list);
+
 }
 
 #[derive(Debug)]
@@ -59,11 +72,15 @@ impl VecTodo {
         true
     }
 
-    fn get_todo(&self, id: u32) -> Option<(usize, &Todo)> {
-        Option::None
+    fn get_todo(&mut self, id: u32) -> Option<(usize, &mut Todo)> {
+        for (index, todo) in self.todos.iter_mut().enumerate() {
+            if todo.id == id {
+                return Some((index, todo));
+            }
+        }
+        None
     }
 }
-
 
 impl Todo {
 
@@ -76,9 +93,9 @@ impl Todo {
         }
     }
 
-    fn mark_completed(&mut self) -> bool {
+    fn mark_completed(&mut self) {
         self.completed = true;
-        true
+        return;
     }
 
     fn update_todo(&mut self, title: String, description: String) -> bool {
