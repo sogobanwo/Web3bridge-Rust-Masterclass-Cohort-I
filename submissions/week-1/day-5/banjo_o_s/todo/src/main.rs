@@ -16,13 +16,7 @@ fn main() {
     // first get the todo from the list
     let found_todo: Option<(usize, &mut Todo)> = todo_list.get_todo(new_id);
 
-    let (_, todo) = match found_todo {
-        Some((i, v)) => (i, v),
-        None => {
-            println!("could not locate todo");
-            return;
-        },
-    };
+    let (_, todo) = checker(found_todo);
     todo.mark_completed();
 
 
@@ -31,13 +25,7 @@ fn main() {
     // update the todo
     // get the todo from the list 
     let found_todo: Option<(usize, &mut Todo)> = todo_list.get_todo(new_id);
-    let (_, todo) = match found_todo {
-        Some((i, v)) => (i, v),
-        None => {
-            println!("could not locate todo");
-            return;
-        },
-    };
+    let (_, todo) = checker(found_todo);
 
     todo.update_todo("gym".to_string(), "go to the gym".to_string());
 
@@ -47,13 +35,7 @@ fn main() {
 
     // edit the todo
     let found_todo: Option<(usize, &mut Todo)> = todo_list.get_todo(new_id);
-    let (_, todo) = match found_todo {
-        Some((i, v)) => (i, v),
-        None => {
-            println!("could not locate todo");
-            return;
-        },
-    };
+    let(_, todo) = checker(found_todo);
     todo.edit_todo("go to the gym and lift weights".to_string());
 
     // after editing
@@ -71,9 +53,26 @@ fn main() {
 
     todo_list.add_todo(third_todo);
 
-
     println!("added a new todo after deletion ::: {:#?}", todo_list);
 
+    let optional_todo: Option<(usize, &mut Todo)> = todo_list.get_todo(new_id);
+    let (_, todo) = checker(optional_todo);
+    todo.mark_completed();
+
+
+    println!("after the third todo is completed: {:#?}", todo_list);
+
+
+}
+
+fn checker(found_todo: Option<(usize, &mut Todo)>) -> (usize, &mut Todo) {
+    match found_todo {
+        Some((i, v)) => (i, v),
+        None => {
+            println!("could not locate todo");
+            return (0, found_todo.unwrap().1);
+        },
+    }
 }
 
 #[derive(Debug)]
