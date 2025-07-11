@@ -66,6 +66,14 @@ fn main() {
     // after deleting
     println!("after deleted: {:#?}", todo_list);
 
+    let new_id: u32 = todo_list.id_counter;
+    let third_todo: Todo = Todo::new(new_id, "tour".to_string(), "travel by road to 10 states".to_string());
+
+    todo_list.add_todo(third_todo);
+
+
+    println!("added a new todo after deletion ::: {:#?}", todo_list);
+
 }
 
 #[derive(Debug)]
@@ -102,6 +110,11 @@ impl VecTodo {
     }
 
     fn delete_todo(&mut self, id: u32) -> bool {
+        // assert!(id != 0 && self.todos.len() >= id as usize, "invalid todo id provided");
+        if id != 0 && id as usize > self.todos.len() {
+            println!("invalid id provided = {}", id);
+            return false;
+        }
         self.todos.retain(|i | i.id != id);
         true
     }
