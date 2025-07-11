@@ -10,7 +10,7 @@ fn main() {
     let another_todo: Todo = Todo::new(new_id, "gym".to_string(), "".to_string());
     todo_list.add_todo(another_todo);
 
-    println!("after creating two todos{:#?}", todo_list);
+    println!("after creating two todos{:?}", todo_list);
 
     // mark to completed
     // first get the todo from the list
@@ -20,7 +20,7 @@ fn main() {
     todo.mark_completed();
 
 
-    println!("after completed::: {:#?}", todo_list);
+    println!("after completed::: {:?}", todo_list);
 
     // update the todo
     // get the todo from the list 
@@ -30,7 +30,7 @@ fn main() {
     todo.update_todo("gym".to_string(), "go to the gym".to_string());
 
     //after updating 
-    println!("after updating todo: {:#?}", todo_list);
+    println!("after updating todo: {:?}", todo_list);
 
 
     // edit the todo
@@ -39,28 +39,28 @@ fn main() {
     todo.edit_todo("go to the gym and lift weights".to_string());
 
     // after editing
-    println!("after editing todo: {:#?}", todo_list);
+    println!("after editing todo: {:?}", todo_list);
 
     // delete a todo
     todo_list.delete_todo(new_id);
 
 
     // after deleting
-    println!("after deleted: {:#?}", todo_list);
+    println!("after deleted: {:?}", todo_list);
 
     let new_id: u32 = todo_list.id_counter;
     let third_todo: Todo = Todo::new(new_id, "tour".to_string(), "travel by road to 10 states".to_string());
 
     todo_list.add_todo(third_todo);
 
-    println!("added a new todo after deletion ::: {:#?}", todo_list);
+    println!("added a new todo after deletion ::: {:?}", todo_list);
 
     let optional_todo: Option<(usize, &mut Todo)> = todo_list.get_todo(new_id);
     let (_, todo) = checker(optional_todo);
     todo.mark_completed();
 
 
-    println!("after the third todo is completed: {:#?}", todo_list);
+    println!("after the third todo is completed: {:?}", todo_list);
 
 
 }
