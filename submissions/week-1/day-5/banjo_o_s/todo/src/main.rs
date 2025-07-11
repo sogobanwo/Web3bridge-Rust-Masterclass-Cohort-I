@@ -1,8 +1,20 @@
 fn main() {
     let mut todo_list: VecTodo = VecTodo::new();
+    let new_id: u32 = todo_list.id_counter;
 
+    let todo: Todo = Todo::new(new_id, "Learn Rust".to_string(), "read the rust book".to_string());
+    todo_list.add_todo(todo);
+    println!("Todo List: {:?}", todo_list);
 
+    let new_id: u32 = todo_list.id_counter;
+    let another_todo: Todo = Todo::new(new_id, "gym".to_string(), "".to_string());
+    todo_list.add_todo(another_todo);
 
+    println!("{:#?}", todo_list);
+
+    // mark to completed
+    // first get the todo from the list
+    let 
 }
 
 #[derive(Debug)]
@@ -30,12 +42,20 @@ impl VecTodo {
     }
 
     fn add_todo(&mut self, todo: Todo) -> bool {
+        // add the todo to the list
         self.todos.push(todo);
+
+        // increment the id counter
+        self.id_counter += 1;
         true
     }
 
     fn delete_todo(&mut self, id: u32) -> bool {
         // self.
+        true
+    }
+
+    fn update_todo(&mut self, index: usize, todo: &Todo) -> bool {
         true
     }
 
