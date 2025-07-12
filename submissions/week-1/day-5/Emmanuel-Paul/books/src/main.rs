@@ -77,3 +77,35 @@ fn main() {
             }
         }
     }
+
+    // Additional functionality: Calculate total value and count by type
+    println!("\n Summary:");
+    println!("============");
+
+    let mut total_value = 0.0;
+    let mut fiction_count = 0;
+    let mut magazine_count = 0;
+    let mut scifi_count = 0;
+
+    for book in &books {
+        match book {
+            Book::Fiction { price, .. } => {
+                total_value += price;
+                fiction_count += 1;
+            }
+            Book::Magazine { price, .. } => {
+                total_value += price;
+                magazine_count += 1;
+            }
+            Book::SciFi { price, .. } => {
+                total_value += price;
+                scifi_count += 1;
+            }
+        }
+    }
+
+    println!("Fiction books: {}", fiction_count);
+    println!("Magazine books: {}", magazine_count);
+    println!("Sci-Fi books: {}", scifi_count);
+    println!("Total inventory value: #{:.2}", total_value);
+}
