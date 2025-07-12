@@ -13,12 +13,13 @@ fn main() {
 
     book_list.iter().for_each(|book| {
         match book {
-            Books::Magazine(price, author) => println!("Magazine price is {}, author is {}", price, author),
-            Books::Fiction(price, author) => println!("Fiction is {}, author is {}", price, author),
-            Books::SciFi(price) => println!("Sci fir price is {}", price),
+            Books::Magazine(price, author) => println!("Magazine: price is {}, author is {}", price, author),
+            Books::Fiction(price, author) => println!("Fiction: price is {}, author is {}", price, author),
+            Books::SciFi(price) => println!("Sci fi: price is {}", price),
         }
     });
 }
+
 
 
 
