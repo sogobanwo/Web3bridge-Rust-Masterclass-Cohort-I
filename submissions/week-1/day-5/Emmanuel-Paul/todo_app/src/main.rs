@@ -78,3 +78,90 @@ impl TodoManager {
                     "Not completed"
                 }
             );
+
+            true
+        } else {
+            println!(" Todo with ID {} not found for update\n", id);
+            false
+        }
+    }
+
+    /// Delete a todo item
+    fn delete_todo(&mut self, id: u32) -> bool {
+        if let Some(todo) = self.todos.remove(&id) {
+            println!("  Deleted todo with ID {}: '{}'", id, todo.title);
+            println!("   Description: {}", todo.description);
+            println!(
+                "   Status: {}\n",
+                if todo.completed {
+                    "Completed"
+                } else {
+                    "Not completed"
+                }
+            );
+            true
+        } else {
+            println!(" Todo with ID {} not found for deletion\n", id);
+            false
+        }
+    }
+
+    /// Edit a todo item (alias for update_todo for clarity)
+    fn edit_todo(&mut self, id: u32, new_title: String, new_description: String) -> bool {
+        println!("  Editing todo with ID {}...", id);
+        self.update_todo(id, Some(new_title), Some(new_description))
+    }
+
+    /// Mark a todo as completed
+    fn mark_completed(&mut self, id: u32) -> bool {
+        if let Some(todo) = self.todos.get_mut(&id) {
+            let was_completed = todo.completed;
+            todo.completed = true;
+
+            println!(
+                " Marked todo with ID {} as completed: '{}'",
+                id, todo.title
+            );
+            println!("   Description: {}", todo.description);
+            println!(
+                "   Status: {} -> Completed\n",
+                if was_completed {
+                    "Already completed"
+                } else {
+                    "Not completed"
+                }
+            );
+
+            true
+        } else {
+            println!(" Todo with ID {} not found for completion\n", id);
+            false
+        }
+    }
+
+    /// Display all todos
+    fn display_all_todos(&self) {
+        println!(" All Todos:");
+        println!("=============");
+
+        if self.todos.is_empty() {
+            println!("No todos found.\n");
+            return;
+        }
+
+        for todo in self.todos.values() {
+    println!(
+        "ID: {} | Title: '{}' | Status: {}",
+        todo.id,
+        todo.title,
+        if todo.completed {
+            " Completed"
+        } else {
+            " Not completed"
+        }
+    );
+    println!("Description: {}", todo.description);
+    println!("---");
+}
+    }
+}
