@@ -118,10 +118,7 @@ impl TodoManager {
             let was_completed = todo.completed;
             todo.completed = true;
 
-            println!(
-                " Marked todo with ID {} as completed: '{}'",
-                id, todo.title
-            );
+            println!(" Marked todo with ID {} as completed: '{}'", id, todo.title);
             println!("   Description: {}", todo.description);
             println!(
                 "   Status: {} -> Completed\n",
@@ -150,90 +147,54 @@ impl TodoManager {
         }
 
         for todo in self.todos.values() {
-    println!(
-        "ID: {} | Title: '{}' | Status: {}",
-        todo.id,
-        todo.title,
-        if todo.completed {
-            " Completed"
-        } else {
-            " Not completed"
+            println!(
+                "ID: {} | Title: '{}' | Status: {}",
+                todo.id,
+                todo.title,
+                if todo.completed {
+                    " Completed"
+                } else {
+                    " Not completed"
+                }
+            );
+            println!("Description: {}", todo.description);
+            println!("---");
         }
-    );
-    println!("Description: {}", todo.description);
-    println!("---");
-}
     }
 }
 
 fn main() {
-    println!(" Todo List Application in Rust");
-    println!("==================================\n");
-
     let mut todo_manager = TodoManager::new();
 
-    // Create some todos
-    println!(" Creating todos...");
-    let todo1_id = todo_manager.create_todo(
+    // Create
+    let todo_id = todo_manager.create_todo(
         "Learn Rust".to_string(),
         "Study Rust programming language fundamentals".to_string(),
     );
 
-    let todo2_id = todo_manager.create_todo(
-        "Build a web app".to_string(),
-        "Create a full-stack web application using Rust".to_string(),
-    );
-
-    let todo3_id = todo_manager.create_todo(
-        "Write documentation".to_string(),
-        "Document the todo application code".to_string(),
-    );
-
-    // Display all todos
-    todo_manager.display_all_todos();
-
-    // Update a todo
-    println!(" Updating todos...");
+    // Update
     todo_manager.update_todo(
-        todo1_id,
+        todo_id,
         Some("Master Rust".to_string()),
-        Some("Deep dive into advanced Rust concepts and patterns".to_string()),
+        Some("Deep dive into advanced Rust".to_string()),
     );
 
-    // Edit a todo (using the edit function)
-    println!("  Editing todos...");
+    // Edit
     todo_manager.edit_todo(
-        todo2_id,
-        "Build a REST API".to_string(),
-        "Create a RESTful API using Rust and Actix-web".to_string(),
+        todo_id,
+        "Master Rust Quickly".to_string(),
+        "Focus on ownership and lifetimes".to_string(),
     );
 
-    // Mark todos as completed
-    println!(" Marking todos as completed...");
-    todo_manager.mark_completed(todo1_id);
-    todo_manager.mark_completed(todo3_id);
+    // Mark as completed
+    todo_manager.mark_completed(todo_id);
 
-    // Display all todos after updates
+    // Display all
     todo_manager.display_all_todos();
 
-    // Delete a todo
-    println!("  Deleting todos...");
-    todo_manager.delete_todo(todo2_id);
-
-    // Try to delete a non-existent todo
-    todo_manager.delete_todo(999);
-
-    // Try to update a non-existent todo
-    println!(" Attempting to update non-existent todo...");
-    todo_manager.update_todo(999, Some("This won't work".to_string()), None);
-
-    // Try to mark a non-existent todo as completed
-    println!(" Attempting to mark non-existent todo as completed...");
-    todo_manager.mark_completed(999);
+    // Delete
+    todo_manager.delete_todo(todo_id);
 
     // Final display
-    println!(" Final state of todos:");
     todo_manager.display_all_todos();
-
-    println!(" Todo List Application Demo Complete!");
 }
