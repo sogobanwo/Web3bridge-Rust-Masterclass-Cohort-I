@@ -16,9 +16,7 @@ fn main() {
             author: "Time Editorial".to_string(),
             price: 7.5,
         },
-        Book::SciFi {
-            price: 12.0,
-        },
+        Book::SciFi { price: 12.0 },
     ];
 
     // Print out each book's information
