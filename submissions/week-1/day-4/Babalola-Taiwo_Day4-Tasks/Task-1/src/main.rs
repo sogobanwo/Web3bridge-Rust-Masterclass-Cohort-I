@@ -5,8 +5,8 @@ enum ItemType {
 }
 
 struct LibraryItem {
-    quantity: i32,
-    id: i32,
+    quantity: u32,
+    id: u32,
     item_type: ItemType,
 }
 

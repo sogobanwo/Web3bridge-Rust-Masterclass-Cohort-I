@@ -26,9 +26,9 @@ fn main() {
 
 
 enum Book {
-    Fiction { title: String, author: String, price: f32 },
-    Magazine { title: String, author: String, price: f32 },
-    SciFi { title: String, price: f32 },
+    Fiction { title: String, author: String, price: f64 },
+    Magazine { title: String, author: String, price: f64 },
+    SciFi { title: String, price: f64 },
 }
 
 fn print_book_details(books: Vec<Book>) {
