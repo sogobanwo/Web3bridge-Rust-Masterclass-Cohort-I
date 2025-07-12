@@ -17,8 +17,8 @@ enum Book {
 
 fn main() {
     let fiction = Book::Fiction {
-        title: String::from("The Great Adventure"),
-        author: String::from("Jane Doe"),
+        title: "The Great Adventure".to_string(),
+        author: "John Doe".to_string(),
         price: 15.50,
     };
 
@@ -29,7 +29,7 @@ fn main() {
     };
 
     let scifi = Book::SciFi {
-        title: String::from("Galactic Wars"),
+        title: "Galactic Wars".to_owned(),
         price: 89.99,
     };
 
