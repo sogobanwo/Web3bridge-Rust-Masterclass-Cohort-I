@@ -113,6 +113,11 @@ fn main() {
         String::from("Build Todo App"),
         String::from("Create a working todo app in rust")
     );
+
+    todo_app.create_todo(
+        String::from("Do house chores"),
+        String::from("Clean the whole house, and fix breakfast")
+    );
     
     todo_app.display_todos();
 
