@@ -1,1 +1,0 @@
-/Users/GIIPEE/Downloads/Workspace/Learning/Web3bridge-Rust-Masterclass-Cohort-I/submissions/week-1/day-2/Glory_Praise_Emmanuel/mini_calculator/target/debug/mini_calculator: /Users/GIIPEE/Downloads/Workspace/Learning/Web3bridge-Rust-Masterclass-Cohort-I/submissions/week-1/day-2/Glory_Praise_Emmanuel/mini_calculator/src/main.rs
