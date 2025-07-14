@@ -1,0 +1,1 @@
+/home/dev/Web3bridge-Rust-Masterclass-Cohort-I/submissions/week-1/day-4/francis-codex/task2/target/debug/task2: /home/dev/Web3bridge-Rust-Masterclass-Cohort-I/submissions/week-1/day-4/francis-codex/task2/src/main.rs
