@@ -1,1 +1,0 @@
-/home/dev/Web3bridge-Rust-Masterclass-Cohort-I/submissions/week-2/day-2/francis-codex/class-mgn-system/target/debug/class-mgn-system: /home/dev/Web3bridge-Rust-Masterclass-Cohort-I/submissions/week-2/day-2/francis-codex/class-mgn-system/src/main.rs
