@@ -61,7 +61,7 @@ impl ClassManager {
             println!("Name: {}, Age: {}, Status: {:?}", student.name, student.age, student.status);
         }
     }
-}
+}_
 
 #[cfg(test)]
 mod tests {
@@ -70,6 +70,13 @@ mod tests {
     #[test]
     fn test_register_student() {
         let mut manager = ClassManager::new();
-        manager.register_student
+        manager.register_student("francis codex".to_string(), 85);
+        assert_eq!(manager.student.len(),1);
+        assert_eq!(manager.student[0].name, "francis codex");
+        assert_eq!(manager.student[0].grade, "85");
+        assert_eq!(manager.student[0]status, StudentStatus::Active);
+
+
+
     }
 }
