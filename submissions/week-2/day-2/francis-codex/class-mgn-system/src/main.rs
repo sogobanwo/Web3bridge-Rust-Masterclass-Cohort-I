@@ -82,7 +82,75 @@ mod tests {
         assert_eq!(manager.students[0].name, "francis codex");
         assert_eq!(manager.students[0].age, 85);
         assert_eq!(manager.students[0].status, StudentStatus::Active);
+    }
 
+    #[test]
+    fn test_edit_student() {
+        let mut manager = ClassManager::new();
+        manager.register_student("Alice".to_string(), 20);
+        manager.register_student("Bob".to_string(), 22);
+        
+        manager.edit_student("Alice", Some("Alice Smith".to_string()), Some(21));
+        assert_eq!(manager.students[0].name, "Alice Smith");
+        assert_eq!(manager.students[0].age, 21);
+        
+        manager.edit_student("Bob", Some("Robert".to_string()), None);
+        assert_eq!(manager.students[1].name, "Robert");
+        assert_eq!(manager.students[1].age, 22);
+        
+        manager.edit_student("Alice Smith", None, Some(23));
+        assert_eq!(manager.students[0].name, "Alice Smith");
+        assert_eq!(manager.students[0].age, 23);
+    }
+
+    #[test]
+    fn test_update_student_status() {
+        let mut manager = ClassManager::new();
+        manager.register_student("Alice".to_string(), 20);
+        manager.register_student("Bob".to_string(), 22);
+        
+        assert_eq!(manager.students[0].status, StudentStatus::Active);
+        assert_eq!(manager.students[1].status, StudentStatus::Active);
+        
+        manager.update_student_status("Alice", StudentStatus::Inactive);
+        assert_eq!(manager.students[0].status, StudentStatus::Inactive);
+        assert_eq!(manager.students[1].status, StudentStatus::Active);
+        
+        manager.update_student_status("Bob", StudentStatus::Inactive);
+        assert_eq!(manager.students[0].status, StudentStatus::Inactive);
+        assert_eq!(manager.students[1].status, StudentStatus::Inactive);
+    }
+
+    #[test]
+    fn test_delete_student() {
+        let mut manager = ClassManager::new();
+        manager.register_student("Alice".to_string(), 20);
+        manager.register_student("Bob".to_string(), 22);
+        manager.register_student("Charlie".to_string(), 19);
+        
+        assert_eq!(manager.students.len(), 3);
+        
+        manager.delete_student("Bob");
+        assert_eq!(manager.students.len(), 2);
+        assert_eq!(manager.students[0].name, "Alice");
+        assert_eq!(manager.students[1].name, "Charlie");
+        
+        manager.delete_student("Alice");
+        assert_eq!(manager.students.len(), 1);
+        assert_eq!(manager.students[0].name, "Charlie");
+        
+        manager.delete_student("Charlie");
+        assert_eq!(manager.students.len(), 0);
+    }
+
+    #[test]
+    fn test_list_students() {
+        let mut manager = ClassManager::new();
+        manager.register_student("Alice".to_string(), 20);
+        manager.register_student("Bob".to_string(), 22);
+        manager.update_student_status("Alice", StudentStatus::Inactive);
+        
+        manager.list_students();
     }
 }
 
