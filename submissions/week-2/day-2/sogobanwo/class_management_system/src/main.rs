@@ -1,0 +1,83 @@
+fn main() {
+    println!("Hello, world!");
+}
+#[derive(Debug)]
+enum ActivesStatus{
+    Active,
+    NotActive,
+}
+
+#[derive(Debug)]
+struct Student {
+    name: String;
+    grade: f64;
+    status:ActivesStatus;
+}
+
+#[derive(Debug)]
+struct ClassOfStudents{
+    class_students: vec<Students>;
+}
+
+impl ClassOfStudents {
+
+    fn init_class (){
+        ClassOfStudents{
+            class_students: vec::new()
+        }
+    }
+
+    fn create_student (&mut self, student: Student) {
+        self.class_students.push(student)
+    }
+
+    fn get_all_students (&self) -> vec<Students>{
+        self.class_students.to_vec();
+    }
+
+    fn get_each_student (&self, index: usize) -> Student{
+        if self.class_students.len() > index {
+            &self.class_students[index]
+        } else {
+            panic!("student does not exist");
+        }
+    }
+
+    fn update_student (&self, index:usize, student: Student){
+         if self.class_students.len() > index {
+            self.class_students[index] = student
+        } else {
+            panic!("student does not exist");
+        }
+    }
+
+    fn delete_student (&self, index:usize){
+        if self.class_students.len() > index {
+            self.class_students.remove(index)
+        } else {
+            panic!("student does not exist")
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_create_student() {
+        let mut class = ClassOfStudents::init_class();
+        assert!(class.len() == 0);
+
+        let student = Student {
+            name: "Sogo".to_string(),
+            grade: 4.5,
+            status:ActivesStatus::Active;
+        };
+
+        class.create_todo(student);
+        assert!(class.class_students.len() == 1);
+    }
+
+  
+}
