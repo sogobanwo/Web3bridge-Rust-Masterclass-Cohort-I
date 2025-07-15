@@ -40,11 +40,25 @@ impl School{
         self.students.retain(|student| student.name != name);
     }
 
-    fn view_students(&self){
-        self.students
+    fn view_students(&self, index: usize) -> &Student {
+        self.students.get(index).expect("Student not found");
     }
 
 }
 fn main() {
-    println!("Hello, world!");
+    
 }
+
+#[cfg(test)]
+mod tests {
+    super::*;
+
+    #[test]
+    fn test_add_student(){
+        let mut school = School::new();
+        school.add_student("Adebara Olamide", 10, Status::active);
+        assert_eq!{school.students.len(), 1};
+        assert_eq!(school.students[0].name, "Adebara Olamide");
+    }
+}
+
