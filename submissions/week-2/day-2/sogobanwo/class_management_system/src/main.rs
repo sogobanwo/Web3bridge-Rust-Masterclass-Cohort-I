@@ -1,20 +1,20 @@
 fn main() {
     println!("Hello, world!");
 }
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 enum ActivesStatus{
     Active,
     NotActive,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Student {
     name: String,
     grade: f64,
     status:ActivesStatus,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct ClassOfStudents{
     class_students: Vec<Student>,
 }
@@ -37,7 +37,7 @@ impl ClassOfStudents {
 
     fn get_each_student (&self, index: usize) -> Student{
         if self.class_students.len() > index {
-            &self.class_students[index];
+            self.class_students[index].clone()
         } else {
             panic!("student does not exist");
         }
@@ -67,7 +67,7 @@ mod tests {
     #[test]
     fn test_create_student() {
         let mut class = ClassOfStudents::init_class();
-        assert!(class.len() == 0);
+        assert!(class.class_students.len() == 0);
 
         let student = Student {
             name: "Sogo".to_string(),
@@ -75,9 +75,10 @@ mod tests {
             status:ActivesStatus::Active
         };
 
-        class.create_todo(student);
+        class.create_student(student);
         assert!(class.class_students.len() == 1);
     }
 
+    
   
 }
