@@ -63,10 +63,13 @@ impl ClassManager {
     }
 }
 
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-//     #[test]
-//     fn test_register_student
-// }
+    #[test]
+    fn test_register_student() {
+        let mut manager = ClassManager::new();
+        manager.register_student
+    }
+}
