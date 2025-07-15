@@ -16,11 +16,6 @@ enum StudentStatus {
     INACTIVE,
 }
 
-struct Subject {
-    name: String,
-    grade: u8,
-}
-
 struct Student {
     name: String,
     status: StudentStatus,
