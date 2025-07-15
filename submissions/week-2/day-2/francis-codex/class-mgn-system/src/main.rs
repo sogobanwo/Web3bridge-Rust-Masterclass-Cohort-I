@@ -1,7 +1,7 @@
 #[derive(Clone, Debug, PartialEq)]
 
-pub struct StudentStatus {
-    Active, 
+pub enum StudentStatus {
+    Active,
     Inactive,
 }
 
@@ -34,8 +34,8 @@ impl ClassManager {
     pub fn edit_student(&mut self, name: &str, new_name: Option<String>, new_age: Option<u8>) {
         for student in &mut self.students {
             if student.name == name {
-                if let Some(n) = new_name {
-                    student.name = n;
+                if let Some(ref n) = new_name {
+                    student.name = n.to_string();
                 }
                 if let Some(a) = new_age {
                     student.age = a;
@@ -47,7 +47,7 @@ impl ClassManager {
     pub fn update_student_status(&mut self, name: &str, status: StudentStatus) {
         for student in &mut self.students {
             if student.name == name {
-                student.status = status;
+                student.status = status.clone();
             }
         }
     }
@@ -61,7 +61,14 @@ impl ClassManager {
             println!("Name: {}, Age: {}, Status: {:?}", student.name, student.age, student.status);
         }
     }
-}_
+}
+
+fn main() {
+    let mut manager = ClassManager::new();
+    manager.register_student("Alice".to_string(), 20);
+    manager.register_student("Bob".to_string(), 22);
+    manager.list_students();
+}
 
 #[cfg(test)]
 mod tests {
@@ -71,12 +78,11 @@ mod tests {
     fn test_register_student() {
         let mut manager = ClassManager::new();
         manager.register_student("francis codex".to_string(), 85);
-        assert_eq!(manager.student.len(),1);
-        assert_eq!(manager.student[0].name, "francis codex");
-        assert_eq!(manager.student[0].grade, "85");
-        assert_eq!(manager.student[0]status, StudentStatus::Active);
-
-
+        assert_eq!(manager.students.len(), 1);
+        assert_eq!(manager.students[0].name, "francis codex");
+        assert_eq!(manager.students[0].age, 85);
+        assert_eq!(manager.students[0].status, StudentStatus::Active);
 
     }
 }
+
