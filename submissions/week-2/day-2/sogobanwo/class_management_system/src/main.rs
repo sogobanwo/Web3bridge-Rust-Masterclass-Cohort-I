@@ -9,53 +9,53 @@ enum ActivesStatus{
 
 #[derive(Debug)]
 struct Student {
-    name: String;
-    grade: f64;
-    status:ActivesStatus;
+    name: String,
+    grade: f64,
+    status:ActivesStatus,
 }
 
 #[derive(Debug)]
 struct ClassOfStudents{
-    class_students: vec<Students>;
+    class_students: Vec<Student>,
 }
 
 impl ClassOfStudents {
 
-    fn init_class (){
+    fn init_class ()-> ClassOfStudents{
         ClassOfStudents{
-            class_students: vec::new()
+            class_students: Vec::new()
         }
     }
 
     fn create_student (&mut self, student: Student) {
-        self.class_students.push(student)
+        self.class_students.push(student);
     }
 
-    fn get_all_students (&self) -> vec<Students>{
-        self.class_students.to_vec();
+    fn get_all_students (&self) -> Vec<Student>{
+        self.class_students.to_vec()
     }
 
     fn get_each_student (&self, index: usize) -> Student{
         if self.class_students.len() > index {
-            &self.class_students[index]
+            &self.class_students[index];
         } else {
             panic!("student does not exist");
         }
     }
 
-    fn update_student (&self, index:usize, student: Student){
+    fn update_student (&mut self, index:usize, student: Student){
          if self.class_students.len() > index {
-            self.class_students[index] = student
+            self.class_students[index] = student;
         } else {
             panic!("student does not exist");
         }
     }
 
-    fn delete_student (&self, index:usize){
+    fn delete_student (&mut self, index:usize){
         if self.class_students.len() > index {
-            self.class_students.remove(index)
+            self.class_students.remove(index);
         } else {
-            panic!("student does not exist")
+            panic!("student does not exist");
         }
     }
 }
@@ -72,7 +72,7 @@ mod tests {
         let student = Student {
             name: "Sogo".to_string(),
             grade: 4.5,
-            status:ActivesStatus::Active;
+            status:ActivesStatus::Active
         };
 
         class.create_todo(student);
