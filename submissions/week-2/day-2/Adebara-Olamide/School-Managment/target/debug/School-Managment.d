@@ -1,1 +1,0 @@
-/Users/pc/Desktop/Web3bridge-Rust-Masterclass-Cohort-I/submissions/week-2/day-2/Adebara-Olamide/School-Managment/target/debug/School-Managment: /Users/pc/Desktop/Web3bridge-Rust-Masterclass-Cohort-I/submissions/week-2/day-2/Adebara-Olamide/School-Managment/src/main.rs
