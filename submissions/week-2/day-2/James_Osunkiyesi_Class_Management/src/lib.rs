@@ -8,6 +8,7 @@
 // - View function
 
 use std::collections::HashMap;
+use uuid::Uuid;
 
 enum StudentStatus {
     ACTIVE,
@@ -32,6 +33,9 @@ impl Student {
     }
 
     fn register_course(&mut self, subject: &str) {
+        if !self.check_student_status() {
+            panic!("Cannot register course, student is not active");
+        }
         if self.grades.contains_key(subject) {
             panic!("Course already registered");
         }
@@ -39,6 +43,9 @@ impl Student {
     }
 
     fn add_score(&mut self, subject: &str, score: u8) {
+        if !self.check_student_status() {
+            panic!("Cannot add score, student is not active");
+        }
         if self.grades.contains_key(subject) {
             self.grades
                 .entry(subject.to_string())
@@ -49,12 +56,53 @@ impl Student {
     }
 
     fn remove_course(&mut self, subject: &str) {
+        if !self.check_student_status() {
+            panic!("Cannot remove course, student is not active");
+        }
         if self.grades.contains_key(subject) {
             self.grades.remove(subject);
         } else {
             panic!("Course not registered");
         }
     }
+
+    fn view_grades(&self) {
+        if !self.check_student_status() {
+            panic!("Cannot view grades, student is not active");
+        }
+        for (subject, score) in &self.grades {
+            println!("{}: {}", subject, score);
+        }
+    }
+
+    fn update_status(&mut self, new_status: StudentStatus) {
+        self.status = new_status;
+    }
+
+    fn check_student_status(&self) -> bool {
+        match self.status {
+            StudentStatus::ACTIVE => {
+                println!("Student is active");
+                true
+            }
+            StudentStatus::EXPELLED => {
+                println!("Student is expelled");
+                false
+            }
+            StudentStatus::SUSPENDED => {
+                println!("Student is suspended");
+                false
+            }
+            StudentStatus::INACTIVE => {
+                println!("Student is inactive");
+                false
+            }
+        }
+    }
+}
+
+struct ClassManagement {
+    students: HashMap<Uuid, Student>,
 }
 
 #[cfg(test)]
@@ -66,7 +114,7 @@ mod test {
     fn test_register_student() {
         let student_one = Student::register(String::from("James Osunkiyesi"));
 
-        assert!(&student_one.name.eq(("James Osunkiyesi")));
+        assert!(&student_one.name.eq("James Osunkiyesi"));
     }
 
     #[test]
