@@ -1,5 +1,8 @@
-use garage_access_control::Employee;
-use garage_access_control::EmployeeType;
+use garage_access_control::state::Employee;
+use garage_access_control::state::EmployeeType;
+
+
+
 
 fn main() {
     let manager = Employee::new(EmployeeType::Manager, true);

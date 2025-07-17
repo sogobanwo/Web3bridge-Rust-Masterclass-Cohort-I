@@ -1,18 +1,7 @@
-#[derive(Debug, PartialEq, Clone)]
-pub enum EmployeeType {
-    MediaTeam,
-    IT,
-    Manager,
-    SocialMedia,
-    TechnicianSupervisor,
-    KitchenStaff,
-}
+pub mod state;
 
-#[derive(Clone)]
-pub struct Employee {
-    pub employee_type: EmployeeType,
-    pub is_employed: bool,
-}
+use crate::state::{Employee, EmployeeType};
+
 
 impl Employee {
     pub fn new(employee_type: EmployeeType, is_employed: bool) -> Self {
