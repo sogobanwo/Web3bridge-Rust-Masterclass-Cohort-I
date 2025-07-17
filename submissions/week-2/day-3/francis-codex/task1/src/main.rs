@@ -1,5 +1,6 @@
-use task::{*};
+pub mod lib;
 
+use crate::lib::*;
 
 fn main() {
     let employee = Employee {
