@@ -1,6 +1,9 @@
+pub mod states;
 
 use std::collections::HashMap;
 use uuid::Uuid;
+pub(crate) use states::{Web3Bridge};
+use crate::web3bridge::states::Staff;
 
 pub enum StaffDepartment {
     MediaTeam,
@@ -9,53 +12,6 @@ pub enum StaffDepartment {
     SocialTeam,
     Kitchen,
     TechnicianSuperVisor,
-}
-
-struct Staff {
-    name: String,
-    id: Uuid,
-    dept: StaffDepartment,
-    is_employed: bool,
-}
-
-pub struct Web3Bridge {
-    staffs: HashMap<Uuid, Staff>,
-}
-
-impl Staff {
-    fn new(name: String, dept: StaffDepartment) -> (Uuid, Self) {
-        let id = Uuid::new_v4();
-        (
-            id,
-            Self {
-                name,
-                id,
-                dept,
-                is_employed: true,
-            },
-        )
-    }
-
-    fn terminate_employment(&mut self) {
-        self.is_employed = false
-    }
-
-    fn is_employed(&self) -> bool {
-        self.is_employed
-    }
-
-    fn check_building_access(&self) -> Result<bool, &str> {
-        if self.is_employed {
-            match self.dept {
-                StaffDepartment::MediaTeam => Ok(true),
-                StaffDepartment::IT => Ok(true),
-                StaffDepartment::Manager => Ok(true),
-                _ => Err("No access to the building"),
-            }
-        } else {
-            panic!("Staff has already been removed")
-        }
-    }
 }
 
 impl Web3Bridge {
