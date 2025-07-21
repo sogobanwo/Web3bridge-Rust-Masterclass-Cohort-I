@@ -203,3 +203,56 @@ mod test {
             assert_eq!(vec[1].value, 499.99);
         }
     }
+
+    #[test]
+    fn test_convert_to_hashmap() {
+        let storage = setup();
+        let converted = convert_to_hashmap(storage);
+        if let Storage::HashMap(hm) = &converted {
+            assert_eq!(hm.len(), 2);
+            assert!(hm.contains_key("SN123"));
+            assert!(hm.contains_key("SN456"));
+            assert_eq!(hm.get("SN123").unwrap().name, "Laptop");
+            assert_eq!(hm.get("SN456").unwrap().name, "Phone");
+        }
+    }
+
+    #[test]
+    fn test_remove_asset_hashmap() {
+        let mut storage = convert_to_hashmap(setup());
+        if let Storage::HashMap(hm) = &mut storage {
+            let original_len = hm.len();
+            hm.remove("SN123");
+            assert_eq!(hm.len(), original_len - 1);
+            assert!(!hm.contains_key("SN123"));
+            assert!(hm.contains_key("SN456"));
+        }
+    }
+
+    #[test]
+    fn test_edit_asset_hashmap() {
+        let mut storage = convert_to_hashmap(setup());
+        if let Storage::HashMap(hm) = &mut storage {
+            let new_asset = Asset {
+                name: "Updated Laptop".to_string(),
+                serial_number: "SN123".to_string(),
+                value: 1099.99,
+            };
+            hm.insert("SN123".to_string(), new_asset.clone());
+            assert_eq!(hm.get("SN123").unwrap().name, "Updated Laptop");
+            assert_eq!(hm.get("SN123").unwrap().value, 1099.99);
+        }
+    }
+
+    #[test]
+    fn test_empty_storage() {
+        let storage = Storage::Vec(Vec::new());
+        if let Storage::Vec(vec) = &storage {
+            assert!(vec.is_empty());
+        }
+        let storage = Storage::HashMap(HashMap::new());
+        if let Storage::HashMap(hm) = &storage {
+            assert!(hm.is_empty());
+        }
+    }
+}
