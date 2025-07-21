@@ -102,7 +102,12 @@ pub fn remove_asset(storage: &mut Storage, serial_number: String) {
     }
 }
 
-pub fn edit_asset(storage: &mut Storage, serial_number: String, new_name: Option<String>, new_value: Option<f64>) {
+pub fn edit_asset(
+    storage: &mut Storage,
+    serial_number: String,
+    new_name: Option<String>,
+    new_value: Option<f64>,
+) {
     if let Storage::HashMap(hm) = storage {
         let asset = match hm.get(&serial_number) {
             Some(asset) => asset.clone(),
@@ -186,7 +191,12 @@ mod test {
             vec.push(duplicate_asset.clone());
             assert_eq!(vec.len(), original_len + 1);
             vec.pop();
-            add_asset(&mut storage, duplicate_asset.name, duplicate_asset.serial_number, duplicate_asset.value);
+            add_asset(
+                &mut storage,
+                duplicate_asset.name,
+                duplicate_asset.serial_number,
+                duplicate_asset.value,
+            );
         }
     }
 

@@ -1,5 +1,8 @@
+use asset_tracker::{
+    Asset, MenuOption, Storage, add_asset, convert_to_hashmap, edit_asset, remove_asset,
+    view_assets,
+};
 use std::io::{self, Write};
-use asset_tracker::{Asset, MenuOption, Storage, add_asset, convert_to_hashmap, edit_asset, remove_asset, view_assets};
 
 fn main() {
     let mut storage = Storage::Vec(Vec::new());
@@ -93,7 +96,10 @@ fn get_edit_input(storage: &Storage, serial_number: &str) -> (Option<String>, Op
         Some(name)
     };
 
-    let prompt_value = format!("Enter new value (or press Enter to keep {:.2}): ", asset.value);
+    let prompt_value = format!(
+        "Enter new value (or press Enter to keep {:.2}): ",
+        asset.value
+    );
     let value_input = read_input(&prompt_value);
     let new_value = if value_input.trim().is_empty() {
         None
