@@ -1,55 +1,73 @@
+use crate::input::get_user_input;
 use crate::manager::FeedbackManager;
 use crate::models::FeedbackError;
-use crate::input::get_user_input;
 
 pub fn add_feedback_menu(manager: &mut FeedbackManager) {
     println!("\n=== ADD FEEDBACK ===");
 
-    let customer_name = match get_user_input("Enter customer name: ") {
-        Ok(name) => name.trim().to_string(),
-        Err(_) => {
-            println!("Error reading input.");
-            return;
-        }
-    };
+    let mut customer_name: String;
+    loop {
+        customer_name = match get_user_input("Enter customer name: ") {
+            Ok(name) => name.trim().to_string(),
+            Err(_) => {
+                println!("Error reading input.");
+                continue;
+            }
+        };
 
-    if customer_name.is_empty() {
-        println!("Customer name cannot be empty.");
-        return;
+        if customer_name.is_empty() {
+            println!("Customer name cannot be empty.");
+            continue;
+        }
+        break;
     }
 
-    let comment = match get_user_input("Enter feedback comment: ") {
-        Ok(comment) => comment.trim().to_string(),
-        Err(_) => {
-            println!("Error reading input.");
-            return;
-        }
-    };
+    let mut comment: String;
+    loop {
+        comment = match get_user_input("Enter feedback comment: ") {
+            Ok(comment) => comment.trim().to_string(),
+            Err(_) => {
+                println!("Error reading input.");
+                continue;
+            }
+        };
 
-    if comment.is_empty() {
-        println!("Comment cannot be empty.");
-        return;
+        if comment.is_empty() {
+            println!("Comment cannot be empty.");
+            continue;
+        }
+        break;
     }
 
-    let rating_input = match get_user_input("Enter rating (1-5 stars): ") {
-        Ok(input) => input,
-        Err(_) => {
-            println!("Error reading input.");
-            return;
-        }
-    };
+    let rating: u8;
+    loop {
+        let rating_input = match get_user_input("Enter rating (1-5 stars): ") {
+            Ok(input) => input,
+            Err(_) => {
+                println!("Error reading input.");
+                continue;
+            }
+        };
 
-    let rating: u8 = match rating_input.trim().parse() {
-        Ok(r) => r,
-        Err(_) => {
-            println!("Please enter a valid number for rating.");
-            return;
-        }
-    };
+        rating = match rating_input.trim().parse() {
+            Ok(r) => {
+                if r < 1 || r > 5 {
+                    println!("Rating must be between 1 and 5.");
+                    continue;
+                }
+                r
+            },
+            Err(_) => {
+                println!("Please enter a valid number for rating.");
+                continue;
+            }
+        };
+        break;
+    }
 
     match manager.add_feedback(customer_name, comment, rating) {
         Ok(()) => println!("Feedback added successfully!"),
-        Err(FeedbackError::InvalidRating) => println!("Rating must be between 1 and 5."),
+        // Err(FeedbackError::InvalidRating) => println!("Rating must be between 1 and 5."),
         Err(_) => println!("Failed to add feedback."),
     }
 }
@@ -110,10 +128,10 @@ pub fn edit_feedback_menu(manager: &mut FeedbackManager) {
     };
 
     match manager.edit_feedback(id) {
-        Ok(()) => {},
+        Ok(()) => {}
         Err(FeedbackError::FeedbackNotFound) => println!("Feedback with ID {} not found.", id),
         Err(FeedbackError::InvalidRating) => println!("Rating must be between 1 and 5."),
         Err(FeedbackError::InvalidInput) => println!("Invalid input provided."),
-        Err(FeedbackError::PersistenceError(_)) => println!("Storage failed")
+        Err(FeedbackError::PersistenceError(_)) => println!("Storage failed"),
     }
 }
