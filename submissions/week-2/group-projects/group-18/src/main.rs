@@ -7,6 +7,7 @@ mod persistence;
 
 use std::thread;
 use std::time::Duration;
+use customer_feedback_logger::utils::delay_execution;
 use manager::FeedbackManager;
 use input::get_user_input;
 use menu::{add_feedback_menu, remove_feedback_menu, edit_feedback_menu};
@@ -20,21 +21,27 @@ fn main() {
     loop {
         display_menu();
 
-        let choice = match get_user_input("Enter your choice (1-6): ") {
-            Ok(input) => input,
-            Err(_) => {
-                println!("Error reading input. Please try again.");
-                continue;
-            }
-        };
+        let choice: u8;
+        loop {
+            let _choice = match get_user_input("Enter your choice (1-6): ") {
+                Ok(input) => input,
+                Err(_) => {
+                    println!("Error reading input. Please try again.");
+                    delay_execution();
+                    continue;
+                }
+            };
 
-        let choice: u8 = match choice.trim().parse() {
-            Ok(c) => c,
-            Err(_) => {
-                println!("Please enter a valid number (1-6).");
-                continue;
-            }
-        };
+             choice = match _choice.trim().parse() {
+                Ok(c) => c,
+                Err(_) => {
+                    println!("Please enter a valid number (1-6).");
+                    delay_execution();
+                    continue;
+                }
+            };
+            break;
+        }
 
         match choice {
             1 => add_feedback_menu(&mut manager),
@@ -57,5 +64,6 @@ fn main() {
             }
             _ => println!("Invalid choice. Please enter a number between 1 and 6."),
         }
+        delay_execution();
     }
 }
