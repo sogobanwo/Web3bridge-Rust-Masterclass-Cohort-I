@@ -71,9 +71,11 @@ pub fn edit_lead(leads: &mut HashMap<u32, Leads>, backup: &mut Option<Leads>) {
             *backup = Some(lead.clone());
             
             println!("Editing lead: {}", lead.name);
-            println!("1. Edit Name  2. Edit Contact  3. Edit Value  4. Save");
             
             loop {
+                println!("\n1. Edit Name  2. Edit Contact  3. Edit Value  4. Save");
+                println!("Choose option:");
+                
                 let mut choice = String::new();
                 io::stdin().read_line(&mut choice).expect("Failed to read line");
                 
@@ -83,12 +85,14 @@ pub fn edit_lead(leads: &mut HashMap<u32, Leads>, backup: &mut Option<Leads>) {
                         let mut new_name = String::new();
                         io::stdin().read_line(&mut new_name).expect("Failed to read line");
                         lead.name = new_name.trim().to_string();
+                        println!("Name updated.");
                     },
                     "2" => {
                         println!("Enter new contact:");
                         let mut new_contact = String::new();
                         io::stdin().read_line(&mut new_contact).expect("Failed to read line");
                         lead.contact = new_contact.trim().to_string();
+                        println!("Contact updated.");
                     },
                     "3" => {
                         println!("Enter new value:");
@@ -96,6 +100,9 @@ pub fn edit_lead(leads: &mut HashMap<u32, Leads>, backup: &mut Option<Leads>) {
                         io::stdin().read_line(&mut new_value).expect("Failed to read line");
                         if let Ok(value) = new_value.trim().parse::<f64>() {
                             lead.value = value;
+                            println!("Value updated.");
+                        } else {
+                            println!("Invalid value format.");
                         }
                     },
                     "4" => {
@@ -103,7 +110,7 @@ pub fn edit_lead(leads: &mut HashMap<u32, Leads>, backup: &mut Option<Leads>) {
                         println!("Changes saved.");
                         break;
                     },
-                    _ => println!("Invalid choice."),
+                    _ => println!("Invalid choice. Please enter 1, 2, 3, or 4."),
                 }
             }
         } else {
