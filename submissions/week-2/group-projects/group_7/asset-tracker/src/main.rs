@@ -23,11 +23,8 @@ fn main() {
                 let serial_number = get_serial_number_input();
                 let (new_name, new_value) = get_edit_input(&storage, &serial_number);
                 if new_name.is_some() || new_value.is_some() {
-                    print!("Save changes? (y/n): ");
-                    io::stdout().flush().unwrap();
-                    let mut confirm = String::new();
-                    io::stdin().read_line(&mut confirm).unwrap();
-                    if confirm.trim().to_lowercase() == "y" {
+                    let confirm = read_input("Save changes? (y/n): ");
+                    if confirm.to_lowercase() == "y" {
                         edit_asset(&mut storage, serial_number, new_name, new_value);
                     } else {
                         println!("Changes canceled.");
@@ -47,14 +44,8 @@ fn show_menu() -> Result<MenuOption, String> {
     println!("3. Remove Asset");
     println!("4. Edit Asset");
     println!("5. Exit");
-    print!("Enter choice: ");
-    io::stdout().flush().unwrap();
-
-    let mut input = String::new();
-    io::stdin()
-        .read_line(&mut input)
-        .map_err(|e| e.to_string())?;
-    match input.trim() {
+    let input = read_input("Enter choice: ");
+    match input.as_str() {
         "1" => Ok(MenuOption::Add),
         "2" => Ok(MenuOption::View),
         "3" => Ok(MenuOption::Remove),
@@ -65,24 +56,10 @@ fn show_menu() -> Result<MenuOption, String> {
 }
 
 fn get_asset_input() -> (String, String, Result<f64, String>) {
-    print!("Enter asset name: ");
-    io::stdout().flush().unwrap();
-    let mut name = String::new();
-    io::stdin().read_line(&mut name).unwrap();
-    let name = name.trim().to_string();
-
-    print!("Enter serial number: ");
-    io::stdout().flush().unwrap();
-    let mut serial_number = String::new();
-    io::stdin().read_line(&mut serial_number).unwrap();
-    let serial_number = serial_number.trim().to_string();
-
-    print!("Enter value: ");
-    io::stdout().flush().unwrap();
-    let mut value_input = String::new();
-    io::stdin().read_line(&mut value_input).unwrap();
+    let name = read_input("Enter asset name: ");
+    let serial_number = read_input("Enter serial number: ");
+    let value_input = read_input("Enter value: ");
     let value = value_input
-        .trim()
         .parse::<f64>()
         .map_err(|_| "Invalid value!".to_string());
 
@@ -90,11 +67,7 @@ fn get_asset_input() -> (String, String, Result<f64, String>) {
 }
 
 fn get_serial_number_input() -> String {
-    print!("Enter serial number: ");
-    io::stdout().flush().unwrap();
-    let mut serial_number = String::new();
-    io::stdin().read_line(&mut serial_number).unwrap();
-    serial_number.trim().to_string()
+    read_input("Enter serial number: ")
 }
 
 fn get_edit_input(storage: &Storage, serial_number: &str) -> (Option<String>, Option<f64>) {
@@ -112,23 +85,16 @@ fn get_edit_input(storage: &Storage, serial_number: &str) -> (Option<String>, Op
         }
     };
 
-    print!("Enter new name (or press Enter to keep '{}'): ", asset.name);
-    io::stdout().flush().unwrap();
-    let mut name = String::new();
-    io::stdin().read_line(&mut name).unwrap();
+    let prompt_name = format!("Enter new name (or press Enter to keep '{}'): ", asset.name);
+    let name = read_input(&prompt_name);
     let new_name = if name.trim().is_empty() {
         None
     } else {
-        Some(name.trim().to_string())
+        Some(name)
     };
 
-    print!(
-        "Enter new value (or press Enter to keep {:.2}): ",
-        asset.value
-    );
-    io::stdout().flush().unwrap();
-    let mut value_input = String::new();
-    io::stdin().read_line(&mut value_input).unwrap();
+    let prompt_value = format!("Enter new value (or press Enter to keep {:.2}): ", asset.value);
+    let value_input = read_input(&prompt_value);
     let new_value = if value_input.trim().is_empty() {
         None
     } else {
@@ -136,10 +102,19 @@ fn get_edit_input(storage: &Storage, serial_number: &str) -> (Option<String>, Op
             Ok(v) => Some(v),
             Err(_) => {
                 println!("Error: Invalid value!");
-                return (new_name, None);
+                None
             }
         }
     };
 
     (new_name, new_value)
+}
+
+// Function to read input from the user
+fn read_input(prompt: &str) -> String {
+    print!("{}", prompt);
+    io::stdout().flush().unwrap();
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    input.trim().to_string()
 }
