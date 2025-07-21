@@ -4,7 +4,7 @@ use crate::input::get_user_input;
 
 pub fn add_feedback_menu(manager: &mut FeedbackManager) {
     println!("\n=== ADD FEEDBACK ===");
-    
+
     let customer_name = match get_user_input("Enter customer name: ") {
         Ok(name) => name.trim().to_string(),
         Err(_) => {
@@ -57,7 +57,7 @@ pub fn add_feedback_menu(manager: &mut FeedbackManager) {
 pub fn remove_feedback_menu(manager: &mut FeedbackManager) {
     println!("\n=== REMOVE FEEDBACK ===");
     manager.list_feedback_ids();
-    
+
     if manager.is_empty() {
         return;
     }
@@ -88,7 +88,7 @@ pub fn remove_feedback_menu(manager: &mut FeedbackManager) {
 pub fn edit_feedback_menu(manager: &mut FeedbackManager) {
     println!("\n=== EDIT FEEDBACK ===");
     manager.list_feedback_ids();
-    
+
     if manager.is_empty() {
         return;
     }
@@ -114,5 +114,6 @@ pub fn edit_feedback_menu(manager: &mut FeedbackManager) {
         Err(FeedbackError::FeedbackNotFound) => println!("Feedback with ID {} not found.", id),
         Err(FeedbackError::InvalidRating) => println!("Rating must be between 1 and 5."),
         Err(FeedbackError::InvalidInput) => println!("Invalid input provided."),
+        Err(FeedbackError::PersistenceError(_)) => println!("Storage failed")
     }
 }

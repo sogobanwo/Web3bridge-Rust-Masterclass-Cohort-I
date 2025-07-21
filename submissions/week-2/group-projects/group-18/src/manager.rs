@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use chrono::Utc;
 use crate::models::{Feedback, FeedbackError};
 use crate::input::get_user_input;
+use crate::persistence;
 
 pub struct FeedbackManager {
     feedbacks: HashMap<u32, Feedback>,
@@ -10,9 +11,20 @@ pub struct FeedbackManager {
 
 impl FeedbackManager {
     pub fn new() -> Self {
-        Self {
-            feedbacks: HashMap::new(),
-            next_id: 1,
+        // Try to load existing data from file
+        match persistence::load_from_file() {
+            Ok((feedbacks, next_id)) => {
+                println!("Loaded {} existing feedback entries.", feedbacks.len());
+                Self { feedbacks, next_id }
+            }
+            Err(e) => {
+                eprintln!("Warning: Could not load existing data: {:?}", e);
+                eprintln!("Starting with empty feedback database.");
+                Self {
+                    feedbacks: HashMap::new(),
+                    next_id: 1,
+                }
+            }
         }
     }
 
@@ -31,6 +43,9 @@ impl FeedbackManager {
 
         self.feedbacks.insert(self.next_id, feedback);
         self.next_id += 1;
+        
+        // Auto-save after adding
+        persistence::auto_save(&self.feedbacks, self.next_id);
         Ok(())
     }
 
@@ -55,6 +70,8 @@ impl FeedbackManager {
         match self.feedbacks.remove(&id) {
             Some(feedback) => {
                 println!("Removed feedback from customer: {}", feedback.customer_name);
+                // Auto-save after removing
+                persistence::auto_save(&self.feedbacks, self.next_id);
                 Ok(())
             }
             None => Err(FeedbackError::FeedbackNotFound),
@@ -109,6 +126,8 @@ impl FeedbackManager {
         if confirm.trim().to_lowercase() == "y" || confirm.trim().to_lowercase() == "yes" {
             self.feedbacks.insert(id, updated_feedback);
             println!("Feedback updated successfully!");
+            // Auto-save after editing
+            persistence::auto_save(&self.feedbacks, self.next_id);
         } else {
             println!("Changes cancelled.");
         }
@@ -130,5 +149,9 @@ impl FeedbackManager {
 
     pub fn is_empty(&self) -> bool {
         self.feedbacks.is_empty()
+    }
+
+    pub fn save_data(&self) -> Result<(), FeedbackError> {
+        persistence::save_to_file(&self.feedbacks, self.next_id)
     }
 }
