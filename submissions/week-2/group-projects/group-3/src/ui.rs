@@ -118,7 +118,7 @@ pub fn edit_ticket(queue: &mut CustomerSupportQueue) {
 
     if confirm == "y" || confirm == "yes" {
         if update_ticket_in_queue(queue, ticket_id, customer_name, description, priority) {
-            println!("Ticket #{} updated successfully!", ticket_id);
+            println!("Ticket #{} updated successfuly!", ticket_id);
         } else {
             println!("Error: Failed to update ticket.");
         }
